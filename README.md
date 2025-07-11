@@ -33,7 +33,7 @@ A modern, secure, and joyful platform for sharing and managing office event memo
 - **Frontend**: React 18, TypeScript, Tailwind CSS
 - **Icons**: Lucide React
 - **Build Tool**: Vite
-- **Database**: MySQL with comprehensive schema
+- **Database**: MongoDB with a comprehensive schema
 - **Authentication**: Role-based access control
 - **Storage**: Secure file storage integration
 
