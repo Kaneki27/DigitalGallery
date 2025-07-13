@@ -1,18 +1,9 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User, AuthState } from '../types';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from 'firebase/auth';
-import { initializeApp } from 'firebase/app';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from 'firebase/auth';
+import { auth } from '../config/firebase';
+import API_ENDPOINTS from '../config/api';
 import axios from 'axios';
-
-const firebaseConfig = {
-  apiKey: 'AIzaSyDxHNp59jysk6nM3J1rSCf48whd7qQIs3g',
-  authDomain: 'rejoice-f5882.firebaseapp.com',
-  projectId: 'rejoice-f5882',
-  // ...other config
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 
 interface AuthContextType extends AuthState {
   login: (email: string, password: string) => Promise<void>;
@@ -43,7 +34,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         try {
           const token = await firebaseUser.getIdToken();
           // Fetch user profile and role from backend with timeout
-          const res = await axios.get('/api/users/me', {
+          const res = await axios.get(API_ENDPOINTS.USERS_ME, {
             headers: { Authorization: `Bearer ${token}` },
             timeout: 5000, // 5 second timeout
           });
@@ -90,7 +81,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     // Optionally, create user in backend DB
     try {
       const token = await cred.user.getIdToken();
-      await axios.put('/api/users/me', { name, department }, {
+      await axios.put(API_ENDPOINTS.USERS_ME, { name, department }, {
         headers: { Authorization: `Bearer ${token}` },
         timeout: 5000, // 5 second timeout
       });

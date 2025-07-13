@@ -1,161 +1,87 @@
-# Rejoice - Digital Office Event Gallery Platform
+# DigitalGallery
 
-A modern, secure, and joyful platform for sharing and managing office event memories. Built with React, TypeScript, and Tailwind CSS.
+A modern digital gallery web application for sharing, managing, and moderating media content. Built with a Node.js/Express backend and a React/TypeScript frontend.
 
-## 🎯 Features
+## Features
+- User authentication and registration
+- Media upload and gallery management
+- Event and comment system
+- Admin dashboard for analytics, moderation, and user management
+- Responsive and modern UI
 
-### Core Functionality
-- **Role-Based Authentication**: Separate interfaces for employees and administrators
-- **Event Management**: Create, organize, and categorize office events
-- **Media Upload**: Drag-and-drop support for photos and videos
-- **Interactive Gallery**: Filter, search, and sort event memories
-- **User Interactions**: Like, comment, and share memories
-- **Content Moderation**: Admin approval workflow for uploaded content
+## 🚀 Deployment Ready
 
-### User Roles
+This project is configured and ready for deployment on **Vercel**! 
 
-#### Employee Portal
-- Upload and share event media
-- Browse and discover event galleries
-- Like and comment on photos/videos
-- Personal profile with upload statistics
-- Join and participate in events
+### Vercel Deployment Steps:
 
-#### Admin Portal
-- User management and role assignment
-- Content moderation and approval
-- Analytics and platform insights
-- Event creation and management
-- System configuration and settings
+1. **Connect your GitHub repository** to Vercel
+2. **Set environment variables** in Vercel dashboard:
+   ```
+   VITE_API_URL=https://your-backend-url.com
+   VITE_FIREBASE_API_KEY=your_firebase_api_key
+   VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+   VITE_FIREBASE_PROJECT_ID=your_project_id
+   VITE_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+   VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+   VITE_FIREBASE_APP_ID=your_app_id
+   VITE_FIREBASE_MEASUREMENT_ID=your_measurement_id
+   ```
+3. **Deploy** - Vercel will automatically build and deploy your frontend
 
-## 🛠 Tech Stack
+### Backend Deployment
 
-- **Frontend**: React 18, TypeScript, Tailwind CSS
-- **Icons**: Lucide React
-- **Build Tool**: Vite
-- **Database**: MongoDB with a comprehensive schema
-- **Authentication**: Role-based access control
-- **Storage**: Secure file storage integration
+The backend (`/server` directory) should be deployed separately on platforms like:
+- **Railway**
+- **Render**
+- **Heroku**
+- **DigitalOcean App Platform**
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
-- Node.js (v18 or higher)
-- MySQL (v8.0 or higher)
+- Node.js (v16 or higher recommended)
 - npm or yarn
 
 ### Installation
 
-1. Clone the repository
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Kaneki27/DigitalGallery.git
+   cd DigitalGallery
+   ```
+2. Install dependencies for both the root and server:
+   ```bash
+   npm install
+   cd server && npm install
+   ```
+3. Set up environment variables (see `env.example`)
+
+### Running the App
+
+#### Backend (Express server)
 ```bash
-git clone <repository-url>
-cd rejoice
+cd server
+npm start
 ```
 
-2. Install dependencies
-```bash
-npm install
-```
-
-3. Set up the database
-```bash
-# Import the database schema
-mysql -u your_username -p < src/database/schema.sql
-```
-
-4. Configure environment variables
-```bash
-cp .env.example .env
-# Edit .env with your database credentials
-```
-
-5. Start the development server
+#### Frontend (Vite + React)
 ```bash
 npm run dev
 ```
 
-## 📱 Demo Accounts
+The backend will typically run on `http://localhost:3000` and the frontend on `http://localhost:5173` by default.
 
-### Admin Account
-- Email: `admin@company.com`
-- Password: `password123`
-- Access: Full admin portal with moderation tools
+## Tech Stack
 
-### Employee Account
-- Email: `employee@company.com`
-- Password: `password123`
-- Access: Employee portal with upload and interaction features
+- **Frontend**: React 18, TypeScript, Tailwind CSS, Vite
+- **Backend**: Node.js, Express, MongoDB
+- **Authentication**: Firebase Auth
+- **File Storage**: Firebase Storage
+- **Deployment**: Vercel (Frontend), Railway/Render (Backend)
 
-## 🎨 Design Philosophy
+## Contributing
+Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
-**Theme**: "Revisit + Joyful moments together"
-
-The platform features a vibrant, modern design with:
-- Gradient backgrounds and animated elements
-- Colorful illustrations and micro-interactions
-- Intuitive navigation and responsive layouts
-- Accessibility-first approach
-- Mobile-optimized experience
-
-## 📊 Database Schema
-
-### Core Tables
-- **users**: Authentication and user profiles
-- **events**: Event organization and metadata
-- **media**: Photo/video storage with approval workflow
-- **comments**: User interactions and feedback
-- **likes**: Social engagement tracking
-- **activity_log**: Audit trail and analytics
-
-### Key Features
-- Foreign key relationships for data integrity
-- Triggers for automatic counter updates
-- Indexed columns for optimal query performance
-- Role-based access control
-- Content approval workflow
-
-## 🔒 Security Features
-
-- **Authentication**: Secure login with password hashing
-- **Authorization**: Role-based access control
-- **Content Moderation**: Admin approval for all uploads
-- **Data Protection**: Secure file storage and database encryption
-- **Activity Logging**: Comprehensive audit trail
-
-## 🌟 Key Highlights
-
-1. **Dual Interface Design**: Separate, optimized experiences for employees and administrators
-2. **Modern UI/UX**: Joyful, production-ready design with smooth animations
-3. **Comprehensive Features**: Complete event gallery management system
-4. **Security First**: Enterprise-grade security and content moderation
-5. **Scalable Architecture**: Well-structured codebase with modular components
-
-## 📈 Future Enhancements
-
-- Real-time notifications
-- Advanced search and filtering
-- Mobile app development
-- Integration with office tools (Slack, Teams)
-- AI-powered content tagging
-- Bulk upload capabilities
-- Advanced analytics dashboard
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 👥 Support
-
-For support, email support@rejoice.com or join our Slack channel.
-
----
-
-**Rejoice** - Where office memories come alive! 🎉
+## License
+[MIT](LICENSE)

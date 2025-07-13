@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 import { getAuth } from 'firebase/auth';
 import { adminApp } from '../../context/AdminAuthContext';
+import API_ENDPOINTS from '../../config/api';
 
 const adminAuth = getAuth(adminApp);
 
@@ -12,8 +13,6 @@ const ModerationPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
-
-  const BACKEND_URL = 'http://localhost:3000';
 
   const fetchPending = async () => {
     setLoading(true);
@@ -27,7 +26,7 @@ const ModerationPage: React.FC = () => {
       }
       const token = await currentUser.getIdToken();
       console.log('Admin token:', token);
-      const res = await axios.get('/api/events/photos/pending', {
+      const res = await axios.get(API_ENDPOINTS.PHOTOS_PENDING, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPendingPhotos(res.data);
@@ -57,7 +56,7 @@ const ModerationPage: React.FC = () => {
         return;
       }
       const token = await currentUser.getIdToken();
-      await axios.patch(`/api/events/photos/${photoId}/${action}`, {}, {
+      await axios.patch(API_ENDPOINTS.PHOTO_ACTION(photoId, action), {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPendingPhotos((prev) => prev.filter((p) => p._id !== photoId));
@@ -86,7 +85,7 @@ const ModerationPage: React.FC = () => {
           {pendingPhotos.map((photo) => (
             <div key={photo._id} className="bg-white rounded-xl shadow p-4 flex flex-col items-center">
               <img
-                src={photo.url.startsWith('/uploads/') ? BACKEND_URL + photo.url : photo.url}
+                src={photo.url.startsWith('/uploads/') ? API_ENDPOINTS.EVENTS.replace('/api/events', '') + photo.url : photo.url}
                 alt={photo.caption || 'Pending media'}
                 className="w-full h-48 object-cover rounded mb-4"
               />

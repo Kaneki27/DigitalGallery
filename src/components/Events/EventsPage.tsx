@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Calendar, Users, Camera, Heart, Search, Filter, Plus } from 'lucide-react';
 import axios from 'axios';
+import API_ENDPOINTS from '../../config/api';
 
 const EventsPage: React.FC = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const EventsPage: React.FC = () => {
   useEffect(() => {
     setLoading(true);
     setError(null);
-    axios.get('/api/events')
+    axios.get(API_ENDPOINTS.EVENTS)
       .then(res => {
         setEvents(res.data);
         setLoading(false);

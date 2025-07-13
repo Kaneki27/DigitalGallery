@@ -2,18 +2,8 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User, AuthState } from '../types';
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
+import { adminFirebaseConfig } from '../config/firebase';
 import axios from 'axios';
-
-// Use the employee Firebase config for the demo
-const adminFirebaseConfig = {
-  apiKey: 'AIzaSyDxHNp59jysk6nM3J1rSCf48whd7qQIs3g',
-  authDomain: 'rejoice-f5882.firebaseapp.com',
-  projectId: 'rejoice-f5882',
-  storageBucket: "rejoice-admin.firebasestorage.app",
-  messagingSenderId: "529571024781",
-  appId: "1:529571024781:web:993382dce5b8ad9e8f77c4",
-  measurementId: "G-XQKD958P3P"
-};
 
 // Initialize separate Firebase app for admin
 export const adminApp = initializeApp(adminFirebaseConfig, 'admin');

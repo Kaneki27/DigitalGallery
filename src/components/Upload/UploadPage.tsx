@@ -3,6 +3,7 @@ import { Upload, Camera, Video, X, Plus, Check } from 'lucide-react';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
 import { getAuth } from 'firebase/auth';
+import API_ENDPOINTS from '../../config/api';
 
 const UploadPage: React.FC = () => {
   const [selectedEvent, setSelectedEvent] = useState('');
@@ -19,7 +20,7 @@ const UploadPage: React.FC = () => {
     setLoadingEvents(true);
     setEventsError(null);
     console.log('Fetching events...');
-    axios.get('/api/events')
+    axios.get(API_ENDPOINTS.EVENTS)
       .then(res => {
         console.log('Events loaded:', res.data);
         setEvents(res.data);
@@ -77,7 +78,7 @@ const UploadPage: React.FC = () => {
       files.forEach((file) => formData.append('media', file));
       // Optionally, add captions as an array (empty for now)
       formData.append('captions', JSON.stringify(files.map(() => '')));
-      await axios.post(`/api/events/${selectedEvent}/photos`, formData, {
+      await axios.post(API_ENDPOINTS.EVENT_PHOTOS(selectedEvent), formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,

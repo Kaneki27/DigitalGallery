@@ -3,8 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Heart, MessageCircle, Share2, Bookmark, MoreHorizontal, ArrowLeft, Send } from 'lucide-react';
 import { getAuth } from 'firebase/auth';
-
-const BACKEND_URL = 'http://localhost:3000';
+import API_ENDPOINTS from '../../config/api';
 
 const EventDetailPage: React.FC = () => {
   const { eventId } = useParams();
@@ -18,7 +17,7 @@ const EventDetailPage: React.FC = () => {
   useEffect(() => {
     setLoading(true);
     setError(null);
-    axios.get(`/api/events/${eventId}`)
+    axios.get(API_ENDPOINTS.EVENT_DETAIL(eventId || ''))
       .then(res => {
         setEvent(res.data);
         setLoading(false);
@@ -37,7 +36,7 @@ const EventDetailPage: React.FC = () => {
       if (!currentUser) throw new Error('Not authenticated');
       const token = await currentUser.getIdToken();
       console.log('Sending DELETE request to', `/api/events/photos/${photoId}`);
-      await axios.delete(`${BACKEND_URL}/api/events/photos/${photoId}`, {
+      await axios.delete(API_ENDPOINTS.PHOTO_DELETE(photoId), {
         headers: { Authorization: `Bearer ${token}` },
       });
       setEvent((prev: any) => ({
@@ -120,7 +119,7 @@ const EventDetailPage: React.FC = () => {
             {/* Media */}
             <div className="relative">
               <img 
-                src={`${BACKEND_URL}${media.url}`} 
+                src={media.url.startsWith('/uploads/') ? API_ENDPOINTS.EVENTS.replace('/api/events', '') + media.url : media.url}
                 alt="Event media"
                 className="w-full aspect-square object-cover cursor-pointer"
                 onClick={() => setSelectedMedia(media._id)}

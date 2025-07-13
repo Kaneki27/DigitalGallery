@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Heart, MessageCircle, Share2, Download, Filter, Grid, List } from 'lucide-react';
-
-// Define the backend URL at the top
-const BACKEND_URL = 'http://localhost:3000';
+import API_ENDPOINTS from '../../config/api';
 
 const GalleryPage: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -15,7 +13,7 @@ const GalleryPage: React.FC = () => {
   useEffect(() => {
     setLoading(true);
     setError(null);
-    axios.get('/api/events/photos/all')
+    axios.get(API_ENDPOINTS.PHOTOS_ALL)
       .then(res => {
         setMedia(res.data);
         setLoading(false);
@@ -135,7 +133,7 @@ const GalleryPage: React.FC = () => {
               >
                 <div className="relative aspect-square overflow-hidden">
                   <img
-                      src={`${BACKEND_URL}${mediaItem.url}`}
+                      src={mediaItem.url.startsWith('/uploads/') ? API_ENDPOINTS.EVENTS.replace('/api/events', '') + mediaItem.url : mediaItem.url}
                       alt={mediaItem.caption || 'Untitled'}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
@@ -188,7 +186,7 @@ const GalleryPage: React.FC = () => {
               >
                 <div className="flex items-center space-x-6">
                   <img
-                      src={`${BACKEND_URL}${mediaItem.url}`}
+                      src={mediaItem.url.startsWith('/uploads/') ? API_ENDPOINTS.EVENTS.replace('/api/events', '') + mediaItem.url : mediaItem.url}
                       alt={mediaItem.caption || 'Untitled'}
                     className="w-24 h-24 rounded-xl object-cover"
                   />
