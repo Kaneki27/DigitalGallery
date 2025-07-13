@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { AdminAuthProvider, useAdminAuth } from './context/AdminAuthContext';
 import AuthPage from './components/Auth/AuthPage';
@@ -25,13 +25,14 @@ import MediaLibraryPage from './components/Admin/MediaLibraryPage';
 const AppContent: React.FC = () => {
   const { isAuthenticated, loading, user } = useAuth();
   const { isAuthenticated: isAdminAuthenticated, loading: adminLoading, user: adminUser } = useAdminAuth();
+  const location = useLocation();
   
   console.log('AppContent user:', user);
   console.log('AppContent adminUser:', adminUser);
 
   // Check if we're on an admin route
-  const isAdminRoute = window.location.pathname.startsWith('/admin');
-  const isRootRoute = window.location.pathname === '/';
+  const isAdminRoute = location.pathname.startsWith('/admin');
+  const isRootRoute = location.pathname === '/';
 
   if (loading || adminLoading) {
     return (
@@ -74,7 +75,7 @@ const AppContent: React.FC = () => {
   }
 
   // Handle employee routes
-  const isEmployeeRoute = window.location.pathname.startsWith('/employee');
+  const isEmployeeRoute = location.pathname.startsWith('/employee');
   
   if (isEmployeeRoute) {
     if (!isAuthenticated) {
